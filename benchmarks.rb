@@ -89,22 +89,21 @@ class RosettaCode
    solutions    = document.css('.ruby')
    # format the first solution from text/html into executable ruby
    simple_ruby_solution = solutions.first.text.split("  ").join("\n")
-   final_solution = simple_ruby_solution.gsub("putsend", "puts \n end")
+   final_solution = simple_ruby_solution.gsub("putsend", "return \n end")
    eval(final_solution)
   end
 end
-
-
-
-
+# This one was the most fun. I'm parsing RosettaCode's page on FizzBuzz looking for Ruby code,
+# and then formatting and evaluating the first result (just a basic FizzBuzz).
+#_________________________________________________________________________________________
 
 
 Benchmark.bmbm(10) do |x|
+  x.report("Basic w/ Cond")            { fb = ConditionalFizzBuzz.new; fb.fizzbuzz(1000) }
+  x.report("Basic Self w/ Cond")       { ConditionalFizzBuzzSelf.fizzbuzz(1000)          }
+  x.report("Basic Self w/ Case")       { CaseFizzBuzzSelf.cracklepop_to_1000             }
   x.report("Parameter Self w/ Case:")  { DisguisedFizzBuzzSelf.cracklepop_to(1000, 3, 5) }
-  x.report("Basic Self w/ Cond") { ConditionalFizzBuzzSelf.fizzbuzz(1000) }
-  x.report("Basic Self w/ Case") { CaseFizzBuzzSelf.cracklepop_to_1000 }
-  x.report("Basic w/ Cond") { fb = ConditionalFizzBuzz.new; fb.fizzbuzz(1000) }
-  x.report("Rosetta") { RosettaCode.get_fizzbuzz }
+  x.report("Rosetta")                  { RosettaCode.get_fizzbuzz                        }
 end
 
 
