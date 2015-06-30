@@ -14,7 +14,7 @@ class DisguisedFizzBuzzSelf
 
   def self.cracklepop_to(limit, mod1, mod2)
     1.upto(limit).map do |num|
-      cracklepop?(num, mod1, mod2)
+      puts cracklepop?(num, mod1, mod2)
     end
   end
 end
@@ -32,9 +32,9 @@ class CaseFizzBuzzSelf
     end
   end
 
-  def self.cracklepop_to_1000000
-    1.upto(1000000).map do |num|
-      cracklepop?(num)
+  def self.cracklepop_to_30
+    1.upto(30).map do |num|
+      puts cracklepop?(num)
     end
   end
 end
@@ -46,13 +46,13 @@ class ConditionalFizzBuzzSelf
   def self.fizzbuzz(num)
     1.upto(num).each do |x|
       if x % 3 == 0 && x % 5 == 0
-        "FizzBuzz"
+        puts "FizzBuzz"
       elsif x % 5 == 0
-        "Buzz"
+        puts "Buzz"
       elsif x % 3 == 0
-        "Fizz"
+        puts "Fizz"
       else
-        x
+        puts x
       end
     end
   end
@@ -64,13 +64,13 @@ class ConditionalFizzBuzz
   def fizzbuzz(num)
     1.upto(num).each do |x|
       if x % 3 == 0 && x % 5 == 0
-        "FizzBuzz"
+        puts "FizzBuzz"
       elsif x % 5 == 0
-        "Buzz"
+        puts "Buzz"
       elsif x % 3 == 0
-        "Fizz"
+        puts "Fizz"
       else
-        x
+        puts x
       end
     end
   end
@@ -90,7 +90,7 @@ class RosettaCode
    # format the first solution from text/html into executable ruby
    simple_ruby_solution = solutions.first.text.split("  ").join("\n")
    final_solution = simple_ruby_solution.gsub("putsend", "return \n end")
-   eval(final_solution)
+   puts eval(final_solution)
   end
 end
 # This one was the most fun. I'm parsing RosettaCode's page on FizzBuzz looking for Ruby code,
@@ -99,11 +99,12 @@ end
 
 
 Benchmark.bmbm(10) do |x|
-  x.report("Basic w/ Cond")            { fb = ConditionalFizzBuzz.new; fb.fizzbuzz(1000000) }
-  x.report("Basic Self w/ Cond")       { ConditionalFizzBuzzSelf.fizzbuzz(1000000)          }
-  x.report("Basic Self w/ Case")       { CaseFizzBuzzSelf.cracklepop_to_1000000             }
-  x.report("Parameter Self w/ Case:")  { DisguisedFizzBuzzSelf.cracklepop_to(1000000, 3, 5) }
-  x.report("Rosetta")                  { RosettaCode.get_fizzbuzz                           }
+  x.report("Basic w/ Cond")            { fb = ConditionalFizzBuzz.new; fb.fizzbuzz(30) }
+  x.report("Basic Self w/ Cond")       { ConditionalFizzBuzzSelf.fizzbuzz(30)          }
+  x.report("Basic Self w/ Case")       { CaseFizzBuzzSelf.cracklepop_to_30             }
+  x.report("Parameter Self w/ Case:")  { DisguisedFizzBuzzSelf.cracklepop_to(30, 3, 5) }
+  x.report("Rosetta")                  { RosettaCode.get_fizzbuzz                      }
 end
+
 
 
