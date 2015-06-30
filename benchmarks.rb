@@ -81,14 +81,21 @@ end
 
 class RosettaCode
   def self.get_fizzbuzz
-   # get the HTML from the website
+   # get HTML from the rosetta
    uri  = URI("http://rosettacode.org/wiki/FizzBuzz")
    body = Net::HTTP.get(uri)
 
-   # parse it and use CSS selectors to find all links in list elements
+   # parse it and use CSS selectors to find the ruby solution
    document     = Nokogiri::HTML(body)
    solutions    = document.css('.ruby')
-   puts solutions.first
+   # format the first solution from text/html into executable ruby
+   simple_ruby_solution = solutions.first.text.split("  ").join("\n")
+   @final_solution = simple_ruby_solution.gsub("putsend", "puts \n end")
+   execute_fizzbuzz
+  end
+
+  def execute_fizzbuzz
+    @final_solution
   end
 end
 
@@ -98,11 +105,11 @@ end
 
 
 Benchmark.bmbm(10) do |x|
-  x.report("CracklepPopSelf w/ Case:")  { DisguisedFizzBuzzSelf.cracklepop_to(1000, 3, 5) }
-  x.report("BasicFizzBuzzSelf w/ Cond") { ConditionalFizzBuzzSelf.fizzbuzz(1000) }
-  x.report("BasicFizzBuzzSelf w/ Cond") { CaseFizzBuzzSelf.cracklepop_to_1000 }
-  x.report("BasicFizzBuzz w/ Cond") { fb = ConditionalFizzBuzz.new; fb.fizzbuzz(1000) }
-  x.re[prt("Rosetta") { RosettaCode.get_fizzbuzz }
+  x.report("Parameter Self w/ Case:")  { DisguisedFizzBuzzSelf.cracklepop_to(1000, 3, 5) }
+  x.report("Basic Self w/ Cond") { ConditionalFizzBuzzSelf.fizzbuzz(1000) }
+  x.report("Basic Self w/ Case") { CaseFizzBuzzSelf.cracklepop_to_1000 }
+  x.report("Basic w/ Cond") { fb = ConditionalFizzBuzz.new; fb.fizzbuzz(1000) }
+  x.report("Rosetta") { RosettaCode.get_fizzbuzz }
 end
 
 
