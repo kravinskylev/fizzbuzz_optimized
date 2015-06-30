@@ -16,7 +16,9 @@ class DisguisedFizzBuzzSelf
     end
   end
 end
-
+# This solution allows any limit and any two numbers to set as parameters.
+# It uses self methods and a case statement.
+# ______________________________________________________________________________
 
 class CaseFizzBuzzSelf
   def self.cracklepop?(num)
@@ -34,7 +36,9 @@ class CaseFizzBuzzSelf
     end
   end
 end
-
+# This solution was to see if performance was improved by making it always run 1000 numbers with 3 and 5,
+# instead of allowing different parameters.
+# _________________________________________________________________________________
 
 class ConditionalFizzBuzzSelf
   def self.fizzbuzz(num)
@@ -51,7 +55,27 @@ class ConditionalFizzBuzzSelf
     end
   end
 end
+# This solution is a classic basic conditional Fizzbuzz with self. It is slow, as expected.
+# ___________________________________________________________________________________
 
+class ConditionalFizzBuzz
+  def fizzbuzz(num)
+    1.upto(num).each do |x|
+      if x % 3 == 0 && x % 5 == 0
+        "FizzBuzz"
+      elsif x % 5 == 0
+        "Buzz"
+      elsif x % 3 == 0
+        "Fizz"
+      else
+        x
+      end
+    end
+  end
+end
+# This is the exact same as above but doesn't use Class methods,
+# as I was curious if they reduced or improved performance.
+# ________________________________________________________________________________________
 
 
 
@@ -65,6 +89,7 @@ Benchmark.bmbm(10) do |x|
   x.report("CracklepPopSelf w/ Case:")  { DisguisedFizzBuzzSelf.cracklepop_to(1000, 3, 5) }
   x.report("BasicFizzBuzzSelf w/ Cond") { ConditionalFizzBuzzSelf.fizzbuzz(1000) }
   x.report("BasicFizzBuzzSelf w/ Cond") { CaseFizzBuzzSelf.cracklepop_to_1000 }
+  x.report("BasicFizzBuzz w/ Cond") { fb = ConditionalFizzBuzz.new; fb.fizzbuzz(1000) }
 end
 
 
