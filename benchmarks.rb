@@ -1,3 +1,5 @@
+require 'nokogiri'
+require 'net/http'
 require 'benchmark'
 
 class DisguisedFizzBuzzSelf
@@ -77,8 +79,18 @@ end
 # as I was curious if they reduced or improved performance.
 # ________________________________________________________________________________________
 
+class RosettaCode
+  def self.get_fizzbuzz
+   # get the HTML from the website
+   uri  = URI("http://rosettacode.org/wiki/FizzBuzz")
+   body = Net::HTTP.get(uri)
 
-
+   # parse it and use CSS selectors to find all links in list elements
+   document     = Nokogiri::HTML(body)
+   solutions    = document.css('.ruby')
+   puts solutions.first
+  end
+end
 
 
 
@@ -90,6 +102,7 @@ Benchmark.bmbm(10) do |x|
   x.report("BasicFizzBuzzSelf w/ Cond") { ConditionalFizzBuzzSelf.fizzbuzz(1000) }
   x.report("BasicFizzBuzzSelf w/ Cond") { CaseFizzBuzzSelf.cracklepop_to_1000 }
   x.report("BasicFizzBuzz w/ Cond") { fb = ConditionalFizzBuzz.new; fb.fizzbuzz(1000) }
+  x.re[prt("Rosetta") { RosettaCode.get_fizzbuzz }
 end
 
 
