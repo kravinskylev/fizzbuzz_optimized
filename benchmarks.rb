@@ -33,6 +33,17 @@ class BasicFizzBuzzSelf
   end
 end
 
+class WTFFizzBuzz
+  def self.fizzbuzz
+    var s = [nil, "Fizz", "Buzz", "FizzBuzz"]
+
+    for i in 1..100:
+      var idx = int(i mod 3 == 0) + int(i mod 5 == 0) * 2
+      s[0] = intToStr(i)
+      echo(s[idx])
+    end
+  end
+end
 
 
 
@@ -45,6 +56,7 @@ end
 Benchmark.bmbm(10) do |x|
   x.report("CracklepPopSelf w/ Case:") { DisguisedFizzBuzzSelf.cracklepop_to(1000, 3, 5) }
   x.report("BasicFizzBuzzSelf w/ Cond") { BasicFizzBuzzSelf.fizzbuzz(1000) }
+  x.report("WTF") { WTFFizzBuzz.fizzbuzz }
 end
 
 
