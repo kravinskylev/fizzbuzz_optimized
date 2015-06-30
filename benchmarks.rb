@@ -12,38 +12,46 @@ class DisguisedFizzBuzzSelf
 
   def self.cracklepop_to(limit, mod1, mod2)
     1.upto(limit).map do |num|
-     puts cracklepop?(num, mod1, mod2)
+      cracklepop?(num, mod1, mod2)
     end
   end
 end
 
-class BasicFizzBuzzSelf
+
+class CaseFizzBuzzSelf
+  def self.cracklepop?(num)
+    case
+      when num % (3 * 5)     == 0 then "CracklePop"
+      when num %  3          == 0 then "Crackle"
+      when num %  5          == 0 then "Pop"
+      else num
+    end
+  end
+
+  def self.cracklepop_to_1000
+    1.upto(1000).map do |num|
+      cracklepop?(num)
+    end
+  end
+end
+
+
+class ConditionalFizzBuzzSelf
   def self.fizzbuzz(num)
     1.upto(num).each do |x|
       if x % 3 == 0 && x % 5 == 0
-        puts "FizzBuzz"
+        "FizzBuzz"
       elsif x % 5 == 0
-        puts "Buzz"
+        "Buzz"
       elsif x % 3 == 0
-        puts "Fizz"
+        "Fizz"
       else
-        puts x
+        x
       end
     end
   end
 end
 
-class WTFFizzBuzz
-  def self.fizzbuzz
-    var s = [nil, "Fizz", "Buzz", "FizzBuzz"]
-
-    for i in 1..100:
-      var idx = int(i mod 3 == 0) + int(i mod 5 == 0) * 2
-      s[0] = intToStr(i)
-      echo(s[idx])
-    end
-  end
-end
 
 
 
@@ -54,9 +62,9 @@ end
 
 
 Benchmark.bmbm(10) do |x|
-  x.report("CracklepPopSelf w/ Case:") { DisguisedFizzBuzzSelf.cracklepop_to(1000, 3, 5) }
-  x.report("BasicFizzBuzzSelf w/ Cond") { BasicFizzBuzzSelf.fizzbuzz(1000) }
-  x.report("WTF") { WTFFizzBuzz.fizzbuzz }
+  x.report("CracklepPopSelf w/ Case:")  { DisguisedFizzBuzzSelf.cracklepop_to(1000, 3, 5) }
+  x.report("BasicFizzBuzzSelf w/ Cond") { ConditionalFizzBuzzSelf.fizzbuzz(1000) }
+  x.report("BasicFizzBuzzSelf w/ Cond") { CaseFizzBuzzSelf.cracklepop_to_1000 }
 end
 
 
