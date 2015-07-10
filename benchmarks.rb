@@ -95,6 +95,10 @@ class RosettaCode
 end
 # This one was the most fun. I'm parsing RosettaCode's page on FizzBuzz looking for Ruby code,
 # and then formatting and evaluating the first result (just a basic FizzBuzz).
+# EDIT: this has become a gem! Now it can search any query in any language -
+# essentially it's become a tiny little web scrapin' API!
+# Check it out at https://rubygems.org/gems/rosettacode,
+# I also wrote a blog post about it at lev.io.
 #_________________________________________________________________________________________
 
 
